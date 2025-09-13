@@ -32,3 +32,4 @@ jobs:
           # 针对每个 service 生成 Go 源码
           chmod +x "${GITHUB_WORKSPACE}/run.sh"
           ./run.sh "${{ matrix.service }}" "${{ env.RELEASE_VERSION }}"
+          

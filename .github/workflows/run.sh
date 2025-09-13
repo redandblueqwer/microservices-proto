@@ -11,12 +11,12 @@ protoc --go_out=./golang --go_opt=paths=source_relative
 cd golang/${SERVICE_NAME}
 
 Initializes Go module
-go mod init github.com/huseyinbabal/microservices-proto/golang/${SERVICE_NAME} ||true
+go mod init github.com/redandblueqwer/microservices-proto/golang/${SERVICE_NAME} ||true
 go mod tidy
 cd ../../
 Refreshes dependencies
-git config --global user.email "huseyinbabal88@gmail.com"
-git config --global user.name "Huseyin BABAL"
+git config --global user.email "2296096713@qq.com"
+git config --global user.name "redandblueqwer"
 git add . && git commit -am "proto update" || true
 git tag -fa golang/${SERVICE_NAME}/${RELEASE_VERSION} -m "golang/${SERVICE_NAME}/${RELEASE_VERSION}"
 git push origin refs/tags/golang/${SERVICE_NAME}/${RELEASE_VERSION}
