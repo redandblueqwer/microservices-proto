@@ -3,7 +3,7 @@ name: Protocol Buffer Go Stubs Generation
 on:
   push:
     tags:
-      - 'v*'          # 触发：打 v 前缀的 tag（如 v1.0.0）
+      - v**          # 触发：打 v 前缀的 tag（如 v1.0.0）
 
 jobs:
   protoc:
