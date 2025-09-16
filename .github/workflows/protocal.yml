@@ -37,5 +37,6 @@ jobs:
         shell: bash
         run: |
           # 针对每个 service 生成 Go 源码
+          mkdir -p ./golang/"${{ matrix.service }}"
           chmod +x ./run.sh
           ./run.sh "${{ matrix.service }}" "${{ env.RELEASE_VERSION }}"
