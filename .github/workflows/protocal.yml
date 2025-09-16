@@ -10,7 +10,6 @@ jobs:
     name: Generate
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
         service: [order, payment, shipping]   # 按服务矩阵并行生成
 
