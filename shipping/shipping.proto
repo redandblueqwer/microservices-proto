@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package shipping;
+
+option go_package = "github.com/redandblueqwer/microservices-proto/shipping";
+
+// 物流服务定义
+service ShippingService {
+  // 创建物流订单
+  rpc CreateShipment(CreateShipmentRequest) returns (CreateShipmentResponse) {}
+  
+  // 获取物流状态
+  rpc GetShipmentStatus(ShipmentStatusRequest) returns (ShipmentStatusResponse) {}
+  
+  // 更新物流信息
+  rpc UpdateShipment(UpdateShipmentRequest) returns (UpdateShipmentResponse) {}
+}
+
+// 创建物流订单请求
+message CreateShipmentRequest {
+  string order_id = 1;
+  Address origin = 2;
+  Address destination = 3;
+  repeated Package packages = 4;
+  ShippingMethod shipping_method = 5;
+}
+
+// 创建物流订单响应
+message CreateShipmentResponse {
+  string shipment_id = 1;
+  ShipmentStatus status = 2;
+  string tracking_number = 3;
+  string estimated_delivery_date = 4;
+  double shipping_cost = 5;
+}
+
+// 物流状态请求
+message ShipmentStatusRequest {
+  string shipment_id = 1;
+}
+
+// 物流状态响应
+message ShipmentStatusResponse {
+  string shipment_id = 1;
+  ShipmentStatus status = 2;
+  string current_location = 3;
+  repeated ShipmentEvent events = 4;
+}
+
+// 更新物流信息请求
+message UpdateShipmentRequest {
+  string shipment_id = 1;
+  ShipmentStatus new_status = 2;
+  string current_location = 3;
+  string notes = 4;
+}
+
+// 更新物流信息响应
+message UpdateShipmentResponse {
+  string shipment_id = 1;
+  bool success = 2;
+  string message = 3;
+}
+
+// 地址信息
+message Address {
+  string recipient_name = 1;
+  string street_address1 = 2;
+  string street_address2 = 3;
+  string city = 4;
+  string state = 5;
+  string postal_code = 6;
+  string country = 7;
+  string phone_number = 8;
+}
+
+// 包裹信息
+message Package {
+  double weight_kg = 1;
+  double length_cm = 2;
+  double width_cm = 3;
+  double height_cm = 4;
+  string description = 5;
+}
+
+// 物流事件
+message ShipmentEvent {
+  string timestamp = 1;
+  string location = 2;
+  string description = 3;
+  ShipmentStatus status = 4;
+}
+
+// 物流方式枚举
+enum ShippingMethod {
+  SHIPPING_METHOD_UNSPECIFIED = 0;
+  SHIPPING_METHOD_STANDARD = 1;
+  SHIPPING_METHOD_EXPRESS = 2;
+  SHIPPING_METHOD_OVERNIGHT = 3;
+}
+
+// 物流状态枚举
+enum ShipmentStatus {
+  SHIPMENT_STATUS_UNSPECIFIED = 0;
+  SHIPMENT_STATUS_CREATED = 1;
+  SHIPMENT_STATUS_LABEL_CREATED = 2;
+  SHIPMENT_STATUS_PICKED_UP = 3;
+  SHIPMENT_STATUS_IN_TRANSIT = 4;
+  SHIPMENT_STATUS_OUT_FOR_DELIVERY = 5;
+  SHIPMENT_STATUS_DELIVERED = 6;
+  SHIPMENT_STATUS_FAILED_DELIVERY = 7;
+  SHIPMENT_STATUS_RETURNED = 8;
+}

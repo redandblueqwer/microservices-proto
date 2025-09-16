@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package payment;
+
+option go_package = "github.com/redandblueqwer/microservices-proto/payment";
+
+// 支付服务定义
+service PaymentService {
+  // 处理支付请求
+  rpc ProcessPayment(PaymentRequest) returns (PaymentResponse) {}
+  
+  // 获取支付状态
+  rpc GetPaymentStatus(PaymentStatusRequest) returns (PaymentStatusResponse) {}
+  
+  // 处理退款请求
+  rpc ProcessRefund(RefundRequest) returns (RefundResponse) {}
+}
+
+// 支付请求消息
+message PaymentRequest {
+  string order_id = 1;
+  double amount = 2;
+  string currency = 3;
+  PaymentMethod payment_method = 4;
+}
+
+// 支付响应消息
+message PaymentResponse {
+  string payment_id = 1;
+  PaymentStatus status = 2;
+  string transaction_id = 3;
+  string message = 4;
+}
+
+// 支付状态请求
+message PaymentStatusRequest {
+  string payment_id = 1;
+}
+
+// 支付状态响应
+message PaymentStatusResponse {
+  string payment_id = 1;
+  PaymentStatus status = 2;
+  string message = 3;
+}
+
+// 退款请求
+message RefundRequest {
+  string payment_id = 1;
+  double amount = 2;
+  string reason = 3;
+}
+
+// 退款响应
+message RefundResponse {
+  string refund_id = 1;
+  RefundStatus status = 2;
+  string message = 3;
+}
+
+// 支付方式枚举
+enum PaymentMethod {
+  PAYMENT_METHOD_UNSPECIFIED = 0;
+  PAYMENT_METHOD_CREDIT_CARD = 1;
+  PAYMENT_METHOD_DEBIT_CARD = 2;
+  PAYMENT_METHOD_PAYPAL = 3;
+  PAYMENT_METHOD_BANK_TRANSFER = 4;
+}
+
+// 支付状态枚举
+enum PaymentStatus {
+  PAYMENT_STATUS_UNSPECIFIED = 0;
+  PAYMENT_STATUS_PENDING = 1;
+  PAYMENT_STATUS_COMPLETED = 2;
+  PAYMENT_STATUS_FAILED = 3;
+  PAYMENT_STATUS_REFUNDED = 4;
+}
+
+// 退款状态枚举
+enum RefundStatus {
+  REFUND_STATUS_UNSPECIFIED = 0;
+  REFUND_STATUS_PENDING = 1;
+  REFUND_STATUS_COMPLETED = 2;
+  REFUND_STATUS_FAILED = 3;
+}
