@@ -4,8 +4,8 @@ RELEASE_VERSION=$2
 
 # 安装依赖
 sudo apt-get install -y protobuf-compiler golang-goprotobuf-dev
-go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.9
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.75.1
 
 # 确保目标目录存在
 mkdir -p ./golang/${SERVICE_NAME}
