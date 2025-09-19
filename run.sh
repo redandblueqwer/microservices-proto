@@ -2,12 +2,11 @@
 SERVICE_NAME=$1
 RELEASE_VERSION=$2
 
-# 安装依赖
-go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.9
-go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.75.1
 
-# 添加插件到PATH
-export PATH="$PATH:$(go env GOPATH)/bin"
+# 安装依赖
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
 
 # 验证工具安装
 which protoc || { echo "protoc未安装成功"; exit 1; }
