@@ -24,7 +24,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: "1.23.4"                 # 如需新版可改为 '1.22'
-          
+
       - name: Install protoc
         run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
 
@@ -40,5 +40,5 @@ jobs:
         shell: bash
         run: |
           # 针对每个 service 生成 Go 源码
-          chmod +x ./run.sh
-          ./run.sh "${{ matrix.service }}" "${{ env.RELEASE_VERSION }}"
+          chmod +x ./.github/workflows/run.sh
+          ./.github/workflows/run.sh "${{ matrix.service }}" "${{ env.RELEASE_VERSION }}"
