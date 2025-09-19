@@ -24,7 +24,7 @@ protoc --go_out=./golang --go_opt=paths=source_relative \
 
 # 初始化Go模块
 cd golang/${SERVICE_NAME}
-go mod init github.com/redandblueqwer/microservices-proto/${SERVICE_NAME} || true
+go mod init github.com/redandblueqwer/microservices-proto/golang/${SERVICE_NAME} || true
 go mod tidy
 cd ../../
 
