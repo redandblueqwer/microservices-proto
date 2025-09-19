@@ -3,9 +3,18 @@ SERVICE_NAME=$1
 RELEASE_VERSION=$2
 
 # 安装依赖
-# sudo apt-get install -y protobuf-compiler golang-goprotobuf-dev
-# go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.9
-# go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.75.1
+sudo apt-get install -y protobuf-compiler golang-goprotobuf-dev
+go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.36.9
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.75.1
+
+# 添加插件到PATH
+export PATH="$PATH:$(go env GOPATH)/bin"
+
+# 验证工具安装
+which protoc || { echo "protoc未安装成功"; exit 1; }
+which protoc-gen-go || { echo "protoc-gen-go未安装成功"; exit 1; }
+which protoc-gen-go-grpc || { echo "protoc-gen-go-grpc未安装成功"; exit 1; }
+
 
 # 确保目标目录存在
 mkdir -p ./golang/${SERVICE_NAME}
@@ -17,7 +26,7 @@ protoc --go_out=./golang --go_opt=paths=source_relative \
 
 # 初始化Go模块
 cd golang/${SERVICE_NAME}
-go mod init github.com/redandblueqwer/microservices-proto/golang/${SERVICE_NAME} || true
+go mod init github.com/redandblueqwer/microservices-proto/${SERVICE_NAME} || true
 go mod tidy
 cd ../../
 
