@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package order;
 
-option go_package = "github.com/redandblueqwer/microservices-proto/golang/order";
+option go_package = "github.com/redandblueqwer/microservices-proto/order";
 
 // 订单状态枚举
 enum OrderStatus {
